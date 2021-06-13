@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: project-db-st
+spec:
+  serviceName: project-db-svc
+  selector:
+    matchLabels:
+      app: project-db-statefulset
+  template:
+    metadata:
+      name: project-db-pod
+      labels:
+        app: project-db-statefulset
+    spec:
+      containers:
+      - name: postgres-container
+        image: db:latest
+        imagePullPolicy: Never
+        ports:
+          - containerPort: 5432
+        volumeMounts:
+          - name: postgres-storage
+            mountPath: /var/lib/postgresql/data
+      volumes:
+        - name: postgres-storage
+          persistentVolumeClaim:
+            claimName: project-pvc

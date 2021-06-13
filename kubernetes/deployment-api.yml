@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: project-api-pod-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: api-pod
+  template:
+    metadata:
+      labels:
+        app: api-pod
+    spec:
+      containers:
+        - name: api-container
+          image: api:latest
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 8000
+      restartPolicy: Always

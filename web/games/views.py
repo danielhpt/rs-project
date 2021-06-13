@@ -11,7 +11,7 @@ from .serializer import PublisherSerializer, PublisherDetailsSerializer, GameSer
 
 import requests
 
-url = "http://localhost:8000/api/"
+url = "http://api:8000/api/"
 
 
 def requestToJson(request):
@@ -28,7 +28,9 @@ def index(request):
 
 
 def publishersList(request):
-    response = requests.get(url + "publishers/").json()
+    response = requests.get(url + "publishers/")
+    print(response)
+    response = response.json()
 
     publishers = []
     for data in response:

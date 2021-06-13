@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: project-web-pod-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: web-pod
+  template:
+    metadata:
+      labels:
+        app: web-pod
+    spec:
+      containers:
+        - name: web-container
+          image: web:latest
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 8080
+      restartPolicy: Always
