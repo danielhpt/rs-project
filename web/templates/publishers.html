@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>Publishers</h1>
+<ul>
+    {% for publisher in publishers %}
+    <li><a href="{% url 'publisher_detail' publisher.id %}">{{ publisher.name }}</a></li>
+    {% endfor %}
+</ul>
+<br>
+<br>
+<form action="{% url 'add_publisher' %}" method="post">
+    {% csrf_token %}
+        {{ form.as_ul }}
+    {{ formSet.as_table }}
+    <input class="btn btn-primary" type="submit" value="Add Publisher">
+</form>
+</body>
+</html>

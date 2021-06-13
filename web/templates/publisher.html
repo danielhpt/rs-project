@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>{{ publisher.name }}</h1>
+<ul>
+    <li>Name: {{ publisher.name }}</li>
+    <li>City: {{ publisher.city }}</li>
+    <li>Country: {{ publisher.country }}</li>
+    <li>Website: <a href="{{ publisher.website }}">{{ publisher.website }}</a></li>
+    <li><a href="{% url 'publisher_games' publisher.id %}">Games</a></li>
+
+
+</ul>
+
+
+
+
+</body>
+</html>

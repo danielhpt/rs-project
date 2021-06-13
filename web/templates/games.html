@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>Games</h1>
+<ul>
+    {% for game in games %}
+    <li><a href="{% url 'game_detail' publisher_pk game.id %}">{{ game.title }}</a></li>
+    {% endfor %}
+<br>
+
+<form action="{% url 'add_game' publisher_pk %}" method="post">
+    {% csrf_token %}
+        {{ form.as_ul }}
+
+    <input class="btn btn-primary" type="submit" value="Add Game">
+   </form>
+
+    <form action="{% url 'del_games' publisher_pk %}" method="post">
+        {% csrf_token %}
+        <input type="submit" value="Delete Games">
+    </form>
+</ul>
+</body>
+</html>
