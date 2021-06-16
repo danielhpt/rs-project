@@ -1,26 +1,15 @@
 import json
 
 from django.http import HttpResponse
-from django.shortcuts import render, get_object_or_404, redirect
-from django.forms import HiddenInput
-from django.core.serializers import deserialize
+from django.shortcuts import render, redirect
 
 from .models import Publisher, Game
 from .forms import PublisherForm, GameForm, GameFormSet
-from .serializer import PublisherSerializer, PublisherDetailsSerializer, GameSerializer
+from .serializer import PublisherDetailsSerializer, GameSerializer
 
 import requests
 
 url = "http://api:8000/api/"
-
-
-def requestToJson(request):
-    newJson = {}
-    for s in request.body.decode("utf-8").replace('%3A', ':').replace('%2F', '/').split(sep="&"):
-        if not s.__contains__("token"):
-            ss = s.split(sep='=')
-            newJson.__setitem__(ss[0], ss[1])
-    return newJson
 
 
 def index(request):
@@ -28,9 +17,7 @@ def index(request):
 
 
 def publishersList(request):
-    response = requests.get(url + "publishers/")
-    print(response)
-    response = response.json()
+    response = requests.get(url + "publishers/").json()
 
     publishers = []
     for data in response:
@@ -47,18 +34,20 @@ def publishersList(request):
 
 def addPublisher(request):
     form = PublisherForm(request.POST)
-    formset = GameFormSet(request.POST, request.FILES, prefix='games')
-    if form.is_valid() and formset.is_valid():
+
+    # formset = GameFormSet(request.POST, request.FILES, prefix='games')
+    if form.is_valid():  # and formset.is_valid():
         publisher = form.save(commit=False)
-        games = formset.save(commit=False)
-        for game in games:
-            game.id = 0
-            game.publisher = publisher
+        # games = formset.save(commit=False)
+        # for game in games:
+        #    game.id = 0
+        #    game.publisher = publisher
         publisher.id = 0
         pubSerializer = PublisherDetailsSerializer(publisher)
-        gamesSerializer = GameSerializer(games, many=True)
+        # gamesSerializer = GameSerializer(games, many=True)
         pubJson = pubSerializer.data
-        pubJson['games'] = json.loads(json.dumps(gamesSerializer.data, ensure_ascii=False))
+        pubJson['games'] = json.loads(json.dumps([], ensure_ascii=False))
+        # pubJson['games'] = json.loads(json.dumps(gamesSerializer.data, ensure_ascii=False))
         response = requests.post(url + 'publishers/', json=pubJson)
         if response.status_code != 201:
             return HttpResponse(status=400)
@@ -147,7 +136,8 @@ def editGame(request, publisher_pk, game_pk):
     if form.is_valid():
         game = form.save(commit=False)
         serializer = GameSerializer(game)
-        response = requests.put(url + 'publishers/' + str(publisher_pk) + "/games/" + str(game_pk) + "/", data=serializer.data)
+        response = requests.put(url + 'publishers/' + str(publisher_pk) + "/games/" + str(game_pk) + "/",
+                                data=serializer.data)
         if response.status_code != 200:
             return HttpResponse(status=400)
         return redirect('game_detail', publisher_pk=publisher_pk, game_pk=game_pk)

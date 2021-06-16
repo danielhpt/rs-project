@@ -15,3 +15,6 @@ class GameForm(ModelForm):
     class Meta:
         model = Game
         fields = ['title', 'pub_date', 'genre', 'price']
+        labels = {
+            'pub_date': "Publication Date"
+        }
