@@ -11,6 +11,7 @@
     * POST
 * /publishers/\<id>/
     * GET
+    * DELETE
 * /publishers/\<id>/games/
     * GET
     * POST

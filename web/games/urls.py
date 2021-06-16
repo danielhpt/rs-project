@@ -6,6 +6,7 @@ urlpatterns = [
     path('', views.index, name="index"),
     path('publishers/', views.publishersList, name="publishers_list"),
     path('add_publisher/', views.addPublisher, name="add_publisher"),
+    path('del_publisher/<int:publisher_pk>/', views.delPublisher, name="del_publisher"),
     path('publishers/<int:publisher_pk>/', views.publisherDetails, name="publisher_detail"),
     path('publishers/<int:publisher_pk>/games/', views.gamesList, name="publisher_games"),
     path('publishers/<int:publisher_pk>/del_games/', views.delGames, name="del_games"),

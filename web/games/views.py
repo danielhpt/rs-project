@@ -66,6 +66,15 @@ def addPublisher(request):
     return HttpResponse(status=400)
 
 
+def delPublisher(request, publisher_pk):
+    response = requests.delete(url + "publishers/" + str(publisher_pk) + "/")
+
+    if response.status_code != 200:
+        return HttpResponse(status=400)
+
+    return redirect('publishers_list')
+
+
 def publisherDetails(request, publisher_pk):
     response = requests.get(url + "publishers/" + str(publisher_pk) + "/").json()
 

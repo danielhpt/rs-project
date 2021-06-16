@@ -34,6 +34,12 @@ class PublisherDetails(APIView):
 
         return Response(serializer.data)
 
+    def delete(self, request, pk):
+        publisher = get_object_or_404(Publisher, pk=pk)
+        publisher.delete()
+
+        return Response({})
+
 
 class GamesList(APIView):
     """List all games from a publisher"""
