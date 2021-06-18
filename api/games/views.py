@@ -14,6 +14,7 @@ class CsrfExemptSessionAuthentication(SessionAuthentication):
 
 class PublishersList(APIView):
     """List all publishers"""
+    authentication_classes = (CsrfExemptSessionAuthentication, BasicAuthentication)
 
     def get(self, request):
         publishers = Publisher.objects.all()
@@ -49,6 +50,7 @@ class PublisherDetails(APIView):
 
 class GamesList(APIView):
     """List all games from a publisher"""
+    authentication_classes = (CsrfExemptSessionAuthentication, BasicAuthentication)
 
     def get(self, request, publisher_pk):
         publisher = get_object_or_404(Publisher, pk=publisher_pk)
@@ -82,6 +84,7 @@ class GamesList(APIView):
 
 class GameDetails(APIView):
     """List the details of a Game"""
+    authentication_classes = (CsrfExemptSessionAuthentication, BasicAuthentication)
 
     def get(self, request, publisher_pk, pk):
         publisher = get_object_or_404(Publisher, pk=publisher_pk)
