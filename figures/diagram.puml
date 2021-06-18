@@ -1,0 +1,51 @@
+@startuml
+!define LIGHTBLUE
+!includeurl https://gist.githubusercontent.com/amgs/de57560012a8a5f0e4240f392b678a40/raw/c43f948dd1f23ed1b87c6c9fc972e71493859b16/style.puml
+'https://plantuml.com/component-diagram
+
+package "Kubernetes Cluster" {
+    node "Pod API x3" {
+        frame "REST API" {
+            [Djando (API)] - ()8000:JSON
+        }
+    }
+
+    node "Pod DB" {
+        database "DB" {
+            [PostgreSQL] - ()5432:SQL
+        }
+    }
+
+    node "Pod WEB x3" {
+        frame "WEB Server" {
+            [Djando (WEB)] - ()8080:HTML/JS/...
+        }
+    }
+
+    [Statefulset] --> 5432
+    [Statefulset] - (TCP/IP : 5432)
+
+    ()8000 <-- [Load Balancer - API]:x3
+    [Load Balancer - API] -- (HTTP : 8000)
+
+    DB --> [Persistent Volume Claim]
+
+    ()8080 <-- [Load Balancer - WEB]:x3
+    [Load Balancer - WEB] -- (HTTP : 8080)
+
+    [Djando (API)] ..> (TCP/IP : 5432):use
+
+    [Djando (WEB)] ..> (HTTP : 8000):use
+}
+
+cloud {
+    [Persistent Volume]
+}
+
+CURL ..> (HTTP : 8000):use
+
+BROWSER ..> (HTTP : 8080):use
+
+[Persistent Volume Claim] --> [Persistent Volume]
+
+@enduml

@@ -1,9 +1,15 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import get_object_or_404
+from rest_framework.authentication import SessionAuthentication, BasicAuthentication
 from rest_framework.views import APIView, Response, status
 
 from .models import Publisher, Game
-
 from .serializer import PublisherSerializer, GameSerializer, PublisherDetailsSerializer, GameDetailsSerializer
+
+
+class CsrfExemptSessionAuthentication(SessionAuthentication):
+
+    def enforce_csrf(self, request):
+        return  # To not perform the csrf check previously happening
 
 
 class PublishersList(APIView):
@@ -105,4 +111,3 @@ class GameDetails(APIView):
         game.delete()
 
         return Response({})
-

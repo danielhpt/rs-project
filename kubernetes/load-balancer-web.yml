@@ -4,10 +4,10 @@ metadata:
   name: web-lb-svc
 spec:
   ports:
-  - name: http1
-    port: 8080
-    targetPort: 8080
-    protocol: TCP
+    - name: http1
+      port: 8080
+      targetPort: 8080
+      protocol: TCP
   selector:
     app: web-pod
   type: LoadBalancer

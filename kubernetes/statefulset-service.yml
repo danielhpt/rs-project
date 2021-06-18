@@ -6,8 +6,8 @@ metadata:
     app: project-db-statefulset
 spec:
   ports:
-  - port: 5432
-    protocol: TCP
+    - port: 5432
+      protocol: TCP
   selector:
     app: project-db-statefulset
 ---

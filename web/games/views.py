@@ -1,13 +1,12 @@
 import json
 
+import requests
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 
-from .models import Publisher, Game
 from .forms import PublisherForm, GameForm, GameFormSet
+from .models import Publisher, Game
 from .serializer import PublisherDetailsSerializer, GameSerializer
-
-import requests
 
 url = "http://api:8000/api/"
 

@@ -1,6 +1,6 @@
 from django.forms import ModelForm, inlineformset_factory
-from .models import Publisher, Game
 
+from .models import Publisher, Game
 
 GameFormSet = inlineformset_factory(Publisher, Game, fields=('title', 'pub_date', 'genre', 'price',))
 
