@@ -9,14 +9,14 @@
 ## Descrição do Projeto
 
 O nosso projeto consiste num sistema de registo de publishers e de games. Permite operações de criação, alteração,
-remoção e de obtenção sobre a informação. Possuímos uma lista de publishers, em que lhe estão associados games (coleção)
+remoção e de obtenção sobre a informação. Possuímos uma lista de publishers à qual estão associados games (coleção)
 . Podemos ver uma publisher em detalhe com todas as suas informações. Uma lista de games refere-se a uma publisher, e
 podemos ver em detalhe, as informações sobre um determinado game.
 
 ## Decisões arquiteturais
 
 Este projeto foi desenvolvido com recurso à framework Django (Python). A construção da API foi alcançada com recurso ao
-package Django REST-Framework. A construção Web foi alcançada com recurso aos Django Templates. Já para a Base de dados
+package Django REST-Framework, já a construção da Web foi alcançada com recurso aos Django Templates. Já para a Base de dados
 optamos por PostgreSQL.
 
 Foram criadas 3 Docker images, uma para cada aplicação Django (API e Web) e uma para a Base de dados.
@@ -355,7 +355,7 @@ Content-Length: 2 bytes
 ```
 
 ```json
-   {}
+{}
 ```
 
 #### Resposta(s) com Erros
